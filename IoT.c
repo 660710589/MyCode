@@ -7,7 +7,6 @@ const int BAR_START_X=10;   // ตำแหน่งแนวนอน (X)
 const int BAR_Y=100;  // ตำแหน่งแนวตั้ง (Y)
 const int BAR_GAP=5;     // ระยะห่างแท่ง
 const int MAX_BARS=10; // จำนวนแท่งสูงสุดบนจอ
-
 int pins[] = {BCM0, BCM1, BCM2, BCM3, BCM4, BCM5, BCM6, BCM7, BCM8, BCM9};
 int dl=200;
 
@@ -23,8 +22,8 @@ void setup() {
   tft.setTextColor(TFT_BLACK);
   tft.drawString("By Chanathinart", 80, 210);
 
-  pinMode(WIO_LEFT, INPUT_PULLUP); //รับค่าจากการกดปุ่ม ถ้ากด=LOW
-  pinMode(WIO_RIGHT, INPUT_PULLUP);
+  pinMode(WIO_5S_LEFT, INPUT_PULLUP); //รับค่าจากการกดปุ่ม ถ้ากด=LOW
+  pinMode(WIO_5S_RIGHT, INPUT_PULLUP);
 
   for (int i = 0; i < 10; i++) {
     pinMode(pins[i], OUTPUT); //ตั้งค่าโหมดของขาGPIOให้เป็นขาเอาต์พุต
@@ -35,7 +34,7 @@ void setup() {
 int barCount = 0;
 void loop() {
   // กดขวา เพิ่ม bar เร็วขึ้น
-  if (digitalRead(WIO_RIGHT) == LOW) {
+  if (digitalRead(WIO_5S_RIGHT) == LOW) {
     if (barCount < MAX_BARS) {
       int xpos = BAR_START_X + barCount * (BAR_WIDTH + BAR_GAP);
       tft.fillRoundRect(xpos, BAR_Y, BAR_WIDTH, BAR_HEIGHT, 0, TFT_WHITE);
@@ -44,7 +43,7 @@ void loop() {
       barCount++;
     }
     // กดซ้าย ลด bar ล่าสุด ช้าลง
-  }else if(digitalRead(WIO_LEFT) == LOW) {
+  }else if(digitalRead(WIO_5S_LEFT) == LOW) {
     if (barCount > 0) {
       barCount--;
       int xpos = BAR_START_X + barCount * (BAR_WIDTH + BAR_GAP);
@@ -63,5 +62,5 @@ void loop() {
         delay(dl);
         digitalWrite(pins[i],0);
   }
-  
 }
+//660710589 ชนาธินาถ เรืองวิทยานนท์
